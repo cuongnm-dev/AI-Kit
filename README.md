@@ -2,114 +2,97 @@
 
 # AI Platform
 
-**Trang tải phần mềm và hướng dẫn cài đặt cho cán bộ, nhân viên.**
+**Tải phần mềm · Cài đặt · Cập nhật · Gỡ cài đặt · Hướng dẫn sử dụng**
 
-[📥 Tải phần mềm](#-tải-phần-mềm) · [⚙️ Cài đặt](#️-cài-đặt) · [🔄 Cập nhật](#-cập-nhật) · [🗑️ Gỡ cài đặt](#️-gỡ-cài-đặt) · [📖 Hướng dẫn sử dụng](#-hướng-dẫn-sử-dụng)
+_(Hướng dẫn cho máy Windows)_
+
+[1. Tải phần mềm](#1-tải-phần-mềm) · [2. Cài đặt](#2-cài-đặt) · [3. Cập nhật](#3-cập-nhật) · [4. Gỡ cài đặt](#4-gỡ-cài-đặt) · [5. Hướng dẫn dùng](#5-hướng-dẫn-dùng)
 
 </div>
 
 ---
 
-## Trang này dùng để làm gì?
+## Trang này là gì?
 
-Đây là **cửa tải phần mềm chính thức** của bộ **AI Platform** — nơi anh/chị:
-
-- **Tải** bản cài mới nhất (ứng dụng AI Studio và các thành phần kèm theo nếu đơn vị yêu cầu)
-- **Xem** cách cài, cập nhật, gỡ phần mềm
-- **Mở** tài liệu hướng dẫn sử dụng
-
-Không cần cài server hay truy cập mã nguồn — chỉ cần trình duyệt và máy tính của mình.
+Đây là trang **tải và cài đặt chính thức** bộ phần mềm **AI Platform** dùng trong công việc.  
+Anh/chị **tự tải và tự cài** trên máy Windows của mình theo các bước bên dưới — chỉ cần kết nối internet.
 
 ---
 
-## Bộ phần mềm gồm những gì?
+## Anh/chị sẽ cài những gì?
 
-| Tên                                          | Dùng để làm gì?                                                                | Ai thường dùng?                               |
-| -------------------------------------------- | ------------------------------------------------------------------------------ | --------------------------------------------- |
-| **AI Studio**                                | Ứng dụng trên máy — chat với trợ lý AI, soạn và quản lý công việc              | **Hầu hết cán bộ**                            |
-| **Bộ cài đặt team** (cài tự động qua script) | Cài đủ công cụ nền cho đơn vị (kèm cập nhật mẫu tài liệu, trợ lý chuyên ngành) | Thường do **IT / quản trị** chạy giúp lần đầu |
-| **Tài liệu hướng dẫn**                       | Cách dùng từng tình huống (soạn hồ sơ, làm dự án phần mềm, v.v.)               | Mọi người sau khi đã cài                      |
+| Phần mềm                                   | Việc làm trên máy                                                         |
+| ------------------------------------------ | ------------------------------------------------------------------------- |
+| **AI Studio**                              | Ứng dụng chính: làm việc với trợ lý AI, soạn thảo, quản lý phiên làm việc |
+| **Bộ cài hỗ trợ** (chạy một lần bằng lệnh) | Cài cấu hình chung, mẫu tài liệu và công cụ phục vụ soạn hồ sơ / dự án    |
+| **Tài liệu hướng dẫn**                     | Đọc sau khi cài xong (mục [5](#5-hướng-dẫn-dùng))                         |
 
-> Phần lớn cán bộ văn phòng **chỉ cần AI Studio**. Phần “bộ cài team” do bộ phận kỹ thuật hỗ trợ nếu đơn vị triển khai đầy đủ.
-
----
-
-## 📥 Tải phần mềm
-
-1. Mở trang **[Bản phát hành (Releases)](https://github.com/cuongnm-dev/ai-kit/releases/latest)**.
-2. Chọn bản mới nhất (ví dụ: `v1.11.6`).
-3. Kéo xuống mục **Assets** (Tệp đính kèm) và tải file phù hợp máy mình:
-
-| Máy của bạn | File cần tải (tên gần đúng)                   |
-| ----------- | --------------------------------------------- |
-| **Windows** | `AI Studio-...-x64.exe`                       |
-| **Mac**     | `AI Studio-...-arm64.dmg` hoặc `...-x64.dmg`  |
-| **Linux**   | `AI Studio-...-x64.AppImage` hoặc file `.deb` |
-
-Nếu không chắc bản nào: hỏi **bộ phận CNTT** của đơn vị hoặc gửi [yêu cầu hỗ trợ](https://github.com/cuongnm-dev/ai-kit/issues).
+**Thứ tự:** cài **AI Studio** trước, sau đó chạy **bộ cài hỗ trợ** (mục [2](#2-cài-đặt)).
 
 ---
 
-## ⚙️ Cài đặt
+## 1. Tải phần mềm
 
-### Cách 1 — Chỉ cài AI Studio (đủ cho công việc văn phòng thông thường)
+1. Mở link: **[Bản phát hành mới nhất](https://github.com/cuongnm-dev/ai-kit/releases/latest)**.
+2. Chọn dòng bản mới (ví dụ `v1.11.6`).
+3. Ở phần **Assets** (tệp đính kèm), tải file **`AI Studio-...-x64.exe`** (tên có chữ **x64**, đuôi **.exe**).
 
-1. Tải file `.exe` (Windows) hoặc `.dmg` (Mac) như mục trên.
-2. **Nhấp đúp** vào file vừa tải.
-3. Làm theo hướng dẫn trên màn hình (Next → Install → Finish).
-4. Lần đầu mở, Windows có thể hỏi “Ứng dụng không được công nhận” — chọn **Vẫn chạy** / **More info → Run anyway** (phần mềm nội bộ, chưa ký số công ty).
+Lưu file vào thư mục **Tải xuống** (hoặc nơi anh/chị dễ tìm).
 
-Mở **AI Studio** từ menu Start (Windows) hoặc thư mục Applications (Mac).
+---
 
-### Cách 2 — Cài đủ bộ cho team (do IT hỗ trợ)
+## 2. Cài đặt
 
-Nếu đơn vị yêu cầu cài **toàn bộ** (ứng dụng + cấu hình team + công cụ nền), nhờ CNTT chạy **một trong hai lệnh** sau trên máy bạn:
+### Bước 1 — Cài AI Studio
 
-**Windows** — mở **PowerShell** (chuột phải → Chạy với tư cách quản trị nếu được hướng dẫn), dán và Enter:
+1. Mở thư mục **Tải xuống**.
+2. **Nhấp đúp** file `AI Studio-...-x64.exe`.
+3. Bấm **Next** → **Install** → **Finish**.
+4. Lần đầu Windows có thể cảnh báo bảo mật — chọn **More info** → **Run anyway** (phần mềm nội bộ).
+5. Mở **AI Studio** từ menu **Start**.
+
+### Bước 2 — Cài bộ hỗ trợ (làm một lần)
+
+Trước khi chạy lệnh, máy cần:
+
+- **Node.js** (bản LTS) — [tải tại nodejs.org](https://nodejs.org), cài theo mặc định (Next → Next).
+- **Docker Desktop** — [tải tại docker.com](https://www.docker.com/products/docker-desktop), cài xong **mở Docker** và đợi biểu tượng ở khay hệ thống chạy ổn định.
+
+Tiếp theo:
+
+1. Nhấn phím **Windows**, gõ `PowerShell`, mở **Windows PowerShell**.
+2. Sao chép **nguyên dòng** dưới, dán vào cửa sổ, nhấn **Enter**:
 
 ```powershell
 irm https://raw.githubusercontent.com/cuongnm-dev/ai-kit/main/bootstrap.ps1 | iex
 ```
 
-**Mac / Linux** — mở **Terminal**, dán và Enter:
+3. Đợi chương trình chạy xong (có thể mất vài phút).
+4. **Đóng** PowerShell, mở lại, gõ `ai-kit doctor` rồi Enter — nếu báo ổn là xong.
 
-```bash
-curl -sL https://raw.githubusercontent.com/cuongnm-dev/ai-kit/main/bootstrap.sh | bash
-```
-
-Sau khi chạy xong, đóng cửa sổ lệnh, mở lại và kiểm tra theo hướng dẫn IT đưa (hoặc gõ `ai-kit status` nếu đã có lệnh này).
-
-**Lưu ý:** Cách 2 cần máy đã có sẵn một số phần mềm nền (CNTT sẽ kiểm tra). Cán bộ văn phòng **không bắt buộc** tự làm nếu chỉ dùng AI Studio.
+**Gặp lỗi:** xem [Xử lý sự cố](docs/troubleshooting.md) hoặc [Câu hỏi thường gặp](docs/faq.md).
 
 ---
 
-## 🔄 Cập nhật
+## 3. Cập nhật
 
-| Việc cần làm                        | Cách làm                                                                                                                                                                         |
-| ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **AI Studio**                       | Mở app → tìm mục **Check for updates** (Kiểm tra cập nhật), **hoặc** tải bản `.exe` / `.dmg` mới tại [Releases](https://github.com/cuongnm-dev/ai-kit/releases/latest) và cài đè |
-| **Bộ cài team** (nếu đã cài Cách 2) | Nhờ CNTT chạy lệnh cập nhật, hoặc trong cửa sổ lệnh gõ: `ai-kit update`                                                                                                          |
+| Phần          | Cách làm                                                                                                                                             |
+| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **AI Studio** | Trong app chọn **Kiểm tra cập nhật** — hoặc tải file `.exe` mới tại [Bản phát hành](https://github.com/cuongnm-dev/ai-kit/releases/latest) và cài đè |
+| **Bộ hỗ trợ** | Mở PowerShell, gõ `ai-kit update` rồi Enter                                                                                                          |
 
 ---
 
-## 🗑️ Gỡ cài đặt
+## 4. Gỡ cài đặt
 
-### Gỡ sạch toàn bộ trên máy (khuyến nghị khi đổi máy / cài lại)
+Dùng khi **đổi máy**, **cài lại**, hoặc **gỡ hẳn** phần mềm.
 
-Chúng tôi cung cấp **một tập lệnh gỡ** — xóa dữ liệu cài đặt AI Platform trên máy (ứng dụng, cấu hình, thư mục phụ).  
-**Không xóa** tài liệu Word/Excel trong ổ đĩa của anh/chị; chỉ phần liên quan phần mềm AI.
+Lệnh gỡ chỉ xóa **phần mềm và cấu hình AI** — **không** xóa file Word, Excel, PDF trong ổ đĩa làm việc của anh/chị.
 
-| Máy         | File (có thể tải về chạy tay)                      |
-| ----------- | -------------------------------------------------- |
-| Windows     | [remove-all-products.ps1](remove-all-products.ps1) |
-| Mac / Linux | [remove-all-products.sh](remove-all-products.sh)   |
+1. Mở **PowerShell** (Windows → gõ `PowerShell`).
+2. Dán lần lượt từng khối, Enter sau mỗi khối.
 
-#### Windows — từng bước
-
-1. Mở **PowerShell** (Start → gõ `PowerShell`).
-2. Dán **từng khối** dưới đây (Enter sau mỗi khối).
-
-**Bước A — chỉ xem sẽ xóa gì, chưa xóa thật:**
+**Xem trước** (chưa xóa gì):
 
 ```powershell
 $i = "$env:TEMP\remove-all-products.ps1"
@@ -117,58 +100,40 @@ irm https://raw.githubusercontent.com/cuongnm-dev/ai-kit/main/remove-all-product
 & $i -DryRun
 ```
 
-**Bước B — xóa thật** (màn hình hỏi, gõ **Y** rồi Enter):
+**Gỡ thật** — khi màn hình hỏi, gõ **Y** rồi Enter:
 
 ```powershell
 & $i
 ```
 
-**Bước C — nếu vẫn thấy “AI Studio” trong Cài đặt → Ứng dụng:**  
-Vào **Cài đặt → Ứng dụng → AI Studio → Gỡ cài đặt**.
+3. Vào **Cài đặt → Ứng dụng** — nếu còn **AI Studio**, chọn **Gỡ cài đặt**.
 
-#### Mac / Linux — từng bước
-
-**Chỉ xem trước:**
-
-```bash
-curl -sL https://raw.githubusercontent.com/cuongnm-dev/ai-kit/main/remove-all-products.sh | bash -s -- --dry-run
-```
-
-**Xóa thật** (gõ **Y** khi được hỏi):
-
-```bash
-curl -sL https://raw.githubusercontent.com/cuongnm-dev/ai-kit/main/remove-all-products.sh | bash
-```
+File lệnh gỡ: [remove-all-products.ps1](remove-all-products.ps1)
 
 ---
 
-## 📖 Hướng dẫn sử dụng
+## 5. Hướng dẫn dùng
 
-Sau khi cài xong, mở tài liệu theo **công việc** của mình:
+| Công việc                            | Tài liệu                                                |
+| ------------------------------------ | ------------------------------------------------------- |
+| Soạn hồ sơ, đề án, tài liệu nhà nước | [Bắt đầu — tài liệu nhà nước](docs/on-board-tailieu.md) |
+| Làm dự án phần mềm                   | [Bắt đầu — SDLC](docs/on-board-sdlc.md)                 |
+| Câu hỏi thường gặp                   | [FAQ](docs/faq.md)                                      |
+| Lỗi, không chạy được                 | [Xử lý sự cố](docs/troubleshooting.md)                  |
 
-| Tôi làm việc gì?                                                   | Đọc file này                                            |
-| ------------------------------------------------------------------ | ------------------------------------------------------- |
-| Soạn **hồ sơ, đề án, tài liệu nhà nước** (Đề án CĐS, thầu CNTT, …) | [Hướng dẫn tài liệu nhà nước](docs/on-board-tailieu.md) |
-| Làm **dự án phần mềm** (yêu cầu → thiết kế → kiểm thử)             | [Hướng dẫn SDLC](docs/on-board-sdlc.md)                 |
-| **Câu hỏi thường gặp**                                             | [FAQ](docs/faq.md)                                      |
-| **Lỗi, không mở được app**                                         | [Xử lý sự cố](docs/troubleshooting.md)                  |
-
-Đã cài bộ team: trong cửa sổ lệnh có thể gõ `ai-kit doc` để xem danh sách tài liệu trên máy.
+Sau khi cài bộ hỗ trợ: mở PowerShell, gõ `ai-kit doc` để xem thêm tài liệu trên máy.
 
 ---
 
-## Cần trợ giúp?
+## Hỗ trợ
 
-1. Hỏi **bộ phận CNTT** đơn vị (họ có quyền chạy script cài/gỡ).
-2. Đọc [Xử lý sự cố](docs/troubleshooting.md).
-3. Gửi [báo lỗi / yêu cầu hỗ trợ](https://github.com/cuongnm-dev/ai-kit/issues) — ghi rõ: hệ điều hành (Windows 10/11…), việc đang làm, ảnh chụp màn hình lỗi (che thông tin mật).
+1. Đọc [Xử lý sự cố](docs/troubleshooting.md) và [FAQ](docs/faq.md).
+2. Gửi [phản ánh lỗi](https://github.com/cuongnm-dev/ai-kit/issues): ghi rõ Windows 10 hay 11, bước đang làm, kèm ảnh màn hình (che nội dung mật).
 
 ---
 
 <div align="center">
 
-**AI Platform** — hỗ trợ cán bộ làm việc hiệu quả hơn với trợ lý AI.
-
-_Dành cho quản trị / IT: quy trình đăng bản mới lên trang tải → [RELEASE.md](RELEASE.md)_
+**AI Platform** — trợ lý AI phục vụ công việc hành chính, chuyên môn.
 
 </div>
