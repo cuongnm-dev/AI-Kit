@@ -1,0 +1,636 @@
+﻿---
+title: Skills Catalog — Khi nào dùng skill nào?
+order: 2
+---
+
+# Skills Catalog
+
+Tài liệu này giúp anh/chị **chọn đúng skill** cho từng tình huống cụ thể, kèm ví dụ thực tế.
+
+> Đọc xong, bạn nên trả lời được:
+> - "Tôi đang ở case X, dùng skill nào?"
+> - "Skill này input/output là gì?"
+> - "Có pitfall nào hay gặp không?"
+
+---
+
+## ⭐ Hai luồng công việc — KHÔNG dùng chéo skill
+
+`ai-kit` phục vụ **2 luồng độc lập**:
+
+- **🅰 SDLC** — sản xuất phần mềm (code + nghiệm thu) với 3 entry-points: A (`/from-doc`), B (`/from-code`), **C (`/from-idea`)**
+- **🅱 Tài liệu nhà nước** — Đề án CĐS, đấu thầu CNTT (1 tài liệu Word)
+
+Phân biệt rõ trước khi chọn skill. Xem README §Hai luồng công việc.
+
+---
+
+## Decision matrix — 🅰 Luồng SDLC
+
+Sắp xếp theo vòng đời dự án để dễ tra cứu.
+
+### A. Khởi tạo dự án (Bootstrap)
+
+| Tình huống | Skill chính | Skill kế tiếp |
+|---|---|---|
+| Khởi tạo workspace mới hoàn toàn | `/new-workspace` | `/from-{doc,code,idea}` để seed intel |
+| Thêm app/service vào monorepo có sẵn | `/new-project` | `/new-feature` |
+| Repo có code nhưng thiếu `.cursor/AGENTS.md` | `/configure-workspace` | (cấu hình tương tác) |
+| Có SRS/BRD docx, project chưa có code | `/from-doc` | `/resume-module M-NNN`, rồi `/generate-docs` |
+| Có codebase đã ship, cần tài liệu nghiệm thu | `/from-code` | `/intel-fill` (field T3) → `/generate-docs` |
+| Có cả SRS + code, cần verify alignment | `/from-code` rồi `/from-doc` (chế độ verify) | Review `drift-report.json` |
+| Greenfield: chỉ có ý tưởng (Luồng C) | `/from-idea` | `/resume-module M-NNN`, rồi `/generate-docs` |
+
+### B. Vòng đời module (post-ADR-003 — đơn vị pipeline)
+
+| Tình huống | Skill chính | Skill kế tiếp |
+|---|---|---|
+| Tạo module mới (interview-first, không tham số ID) | `/new-module` | `/resume-module M-NNN` |
+| Update module (change request, mở lại nếu sealed) | `/update-module M-NNN` | `/resume-module M-NNN` |
+| Update 1 feature trong module hiện có | `/update-module M-NNN --change-feature F-NNN` | `/resume-module M-NNN` |
+| Tiếp tục pipeline module đang dở | `/resume-module M-NNN` | `/close-feature` cho từng F-NNN trong module |
+
+### C. Vòng đời feature
+
+| Tình huống | Skill chính | Skill kế tiếp |
+|---|---|---|
+| Thêm feature mới vào module có sẵn (interview-first) | `/new-feature` | `/resume-module M-parent` (post-ADR-003) |
+| Update feature (tự nhận diện variant) | `/update-feature F-NNN` | post-ADR-003 chuyển hướng `/update-module --change-feature`; legacy chạy tại chỗ |
+| Tiếp tục pipeline feature legacy | `/resume-feature F-NNN` | post-ADR-003 chuyển hướng `/resume-module M-parent`; legacy chạy bình thường |
+| Feature đã reviewer Pass — niêm phong | `/close-feature F-NNN` | `/generate-docs` nếu cần xuất Office |
+
+### D. Bảo trì intel
+
+| Tình huống | Skill chính | Skill kế tiếp |
+|---|---|---|
+| Code thay đổi auth/RBAC/route → intel stale | `/intel-refresh` | Kiểm tra `_meta.json.stale` |
+| Fill ATTT/NFR/dự toán (chỉ con người biết) | `/intel-fill` | (phỏng vấn tương tác) |
+
+### E. Code work scoped
+
+| Tình huống | Skill chính | Skill kế tiếp |
+|---|---|---|
+| Bug ≤ 3 file chưa rõ root cause | `/code-change fix` | `/quality review` |
+| Refactor có giới hạn, không đổi public API | `/code-change refactor` | `/quality review` |
+| Có plan đã duyệt, triển khai ad-hoc | `/implement` | `/quality review` |
+| Review PR / sinh test / OWASP / GDPR / CVE | `/quality {mode}` | — |
+| Khảo sát kiến trúc + lập backlog tech-debt | `/arch-review` | `/adr` cho quyết định mới |
+| Quyết định kiến trúc lớn cần ghi nhận | `/adr` | (link vào tech-lead plan) |
+| Spike điều tra trước khi quyết hướng | `/spike` | `/adr` ghi nhận quyết định |
+
+### F. Vận hành (Ops)
+
+| Tình huống | Skill chính | Skill kế tiếp |
+|---|---|---|
+| Bug nghiêm trọng cần ship gấp (đã biết root cause) | `/hotfix` | `/quality review` post-merge |
+| Sự cố production đang xảy ra | `/incident respond` | `/hotfix` nếu liên quan code |
+| Postmortem sự cố P0/P1 | `/incident` | `/runbook` cập nhật quy trình |
+| Tạo runbook vận hành cho service mới | `/runbook` | — |
+| Quản lý phát hành phiên bản | `/release {prepare\|go-nogo\|rollback}` | — |
+
+### G. Hỗ trợ workspace
+
+| Tình huống | Skill chính | Skill kế tiếp |
+|---|---|---|
+| Quét cache discipline trước khi publish | `/cache-lint` | (tự sửa nếu cần) |
+| Đóng gói ZIP bàn giao cho khách | `/zip-disk` | (sau `/generate-docs`) |
+
+---
+
+## Decision matrix — 🅱 Luồng Tài liệu nhà nước
+
+| Tình huống bạn đang gặp | Skill primary | Skill follow-up |
+|---|---|---|
+| Soạn Đề án Chuyển đổi số / CNTT cấp Bộ/Tỉnh/Sở | `/new-strategic-document` | `/strategic-critique` trước khi nộp |
+| Tạo 1 tài liệu hành chính riêng lẻ (TKCS/HSMT/HSDT/dự toán/NCKT) | `/new-document-workspace` | (wizard chọn loại) |
+| Tiếp tục Đề án/tài liệu đang dở dang | `/resume-document` | (đọc `_doc_state.md` hoặc `_strategy_state.md`) |
+| Adversarial review Đề án CĐS trước khi nộp Bộ/Tỉnh | `/strategic-critique <draft.docx>` | Sửa theo findings, re-run |
+| Cần update KB chính sách CNTT VN | (agent `policy-researcher` qua orchestrator) | — |
+
+> **Lưu ý**: Luồng B output **1 tài liệu Word duy nhất**, KHÔNG phải bộ 5 file nghiệm thu như Luồng A. KHÔNG dùng `/generate-docs` cho Luồng B (skill đó chỉ cho phần mềm SDLC).
+
+---
+
+## Skills — Onboarding pipeline (most common)
+
+### `/from-doc` — Phân tích tài liệu nguồn
+
+**Một câu**: Đọc PDF/DOCX/ảnh wireframe → khởi tạo intel layer + sinh nhiều `_state.md` cho team SDLC.
+
+**Khi nào**: Bắt đầu project mới có SRS/BRD, hoặc khi cần đối chiếu code-vs-docs.
+
+**Input**: 1 hoặc nhiều file (`.docx`, `.pdf`, `.md`, ảnh wireframe).
+
+**Output**:
+- `docs/intel/doc-brief.md` — narrative summary
+- `docs/intel/{actor-registry, feature-catalog, sitemap}.json` — seeds
+- `docs/features/F-NNN/_state.md` — 1 file/feature, status: planned
+
+**Ví dụ session**:
+```
+$ /from-doc D:/Projects/be-portal/docs/source/SRS-v0.3.docx
+
+Detected:
+  - 2 modules (M1: User Mgmt, M2: Transactions)
+  - 7 features (SRS-F001 to SRS-F007)
+  - 3 roles (admin, hqdk, lanh-dao)
+  - 12 screens
+
+Pipeline split:
+  Modules ≤ 3 AND features ≤ 10 → 1 pipeline cover all
+  
+Confirm? [y]
+> y
+
+✓ Generated F-001..F-007
+✓ docs/intel/doc-brief.md (4.2 KB)
+✓ docs/intel/feature-catalog.json (status: planned for all)
+```
+
+**Tip — flexibility**:
+- Có thể gọi nhiều lần với nhiều SRS (tích lũy vào catalog)
+- Nếu intel layer đã tồn tại → tự động chuyển VERIFY mode (không tạo lại entries)
+
+**Pitfall**:
+- SRS quá lớn (>50 features) → skill chuyển LARGE mode, dispatch `doc-intel-module` parallel. Tốn token, nhưng cần thiết.
+- Hình ảnh wireframe không có alt text → OCR hạn chế, cần `/intel-fill` bổ sung sau.
+
+Chi tiết workflow →
+
+---
+
+### `/from-code` — Reverse-engineer từ codebase
+
+**Một câu**: Quét toàn bộ codebase → trích xuất features, routes, RBAC, entities → sinh canonical intel layer.
+
+**Khi nào**: Project đã có code đang chạy, cần sinh tài liệu nghiệm thu hoặc onboard team mới.
+
+**Input**: Path tới project root (vd `D:/Projects/be-portal`).
+
+**Output**:
+- `docs/intel/system-inventory.json` — tech stack
+- `docs/intel/code-brief.md`, `arch-brief.md` — narrative
+- `docs/intel/{actor-registry, permission-matrix, sitemap, feature-catalog, data-model, integrations}.json`
+- `docs/features/F-NNN/_state.md` — status: implemented (vì code đã có)
+
+**Ví dụ session**:
+```
+$ /from-code D:/Projects/be-portal
+
+Phase 0 Preflight:
+  Detected: Angular 18 + .NET 9 + PostgreSQL
+
+Phase 1 Static harvest (silent-fail detection):
+  Routes: 84 found
+  Entities: 32 found
+  RBAC decorators: 47 found
+
+Phase 1.5 Actor enumeration:
+  Roles: hqdk, lanh-dao, kiem-tra, admin
+
+Phase 2 Feature synthesis:
+  Group endpoints + UI → 47 features
+
+Phase 4 Architecture diagrams:
+  context.mmd, container.mmd, components.mmd...
+
+Phase 5 Scaffold:
+  47 _state.md files (status: implemented)
+
+✓ Generated F-001..F-047
+```
+
+**Tip — flexibility**:
+- Monorepo: skill detect nhiều services → tạo `docs/feature-map-aggregate.yaml`
+- Có thể chạy lại sau khi code thay đổi — sẽ refresh intel (không phá entries đã có)
+
+**Pitfall**:
+- Stub-as-done detection: nếu hàm trả `throw NotImplementedException` → skill mark `current-implementation-status: stubbed` thay vì `done`.
+- Test files có sẵn (Jest/Pytest) → tự extract test seeds vào `test-evidence/`.
+
+Chi tiết workflow →
+
+---
+
+### `/from-idea` — Brainstorm từ ý tưởng thuần túy (Luồng C)
+
+**Một câu**: 4 spirals (PRFAQ → Impact Mapping → Event Storming → Story Mapping) + pre-mortem → kết tinh thành intel layer cho team SDLC consume. Skill đóng vai **thinking partner** chứ không phải voice recorder.
+
+**Khi nào**: Greenfield project — chỉ có ý tưởng, chưa có SRS/BRD, chưa có code.
+
+**Khác `/from-doc`**: from-doc đọc tài liệu có sẵn; from-idea phỏng vấn user qua workshop pattern để tạo tài liệu từ con số 0.
+
+**Input**:
+- Ý tưởng trong đầu user (mandatory)
+- Tùy chọn: 1-3 hình ảnh tham khảo + đoạn mô tả ngắn ≤ 1000 chars (Phase 0.5 visual primer)
+
+**Output**:
+- `docs/intel/{actor-registry, permission-matrix, sitemap, feature-catalog}.json` (4 artifacts, source: `manual-interview`/`from-idea`)
+- `docs/intel/test-evidence/F-NNN.json` (TC seeds per must-have feature, source: `from-idea/synthesized`)
+- `docs/features/F-NNN/_state.md` + `feature-brief.md` (status: in-progress, source-type: `idea-brainstormed`, current-stage: `ba`)
+- `docs/features/_idea/{idea-brief, impact-map, event-storming, story-map, pre-mortem, dedup-report, idea-graveyard, coherence-log, assumptions}.md` (workshop artifacts)
+
+**Ví dụ session** (~1.5-3h chia nhiều session OK):
+```
+$ /from-idea
+
+Phase 0 Bootstrap: workspace ready, MCP warm-start lookup actor-pattern...
+Phase 0.5: Visual primer? [skip / paste image]
+> skip
+
+Spiral 1 PRFAQ (~30 min):
+  Q1.1.1: Headline 1 câu (Apple/Amazon press release style)?
+  > AI code review cho solo dev — giảm 50% review time
+  Echo: "Tôi nghe headline là... bạn muốn... đúng intent không?" [confirm]
+  ... (5 FAQ + 3 assumptions mandatory) ...
+
+Spiral 2 Impact Mapping (~45 min):
+  VN gov context? [no/yes]
+  > no
+  ... (Goal → 3 actors → 5 impacts → 7 deliverables) ...
+  DEDUP gate: 5 UNIQUE / 1 ADOPT (GitHub API) / 1 EXTEND (existing CI)
+
+Spiral 3 Event Storming (Light mode detected):
+  ... (5 events / 3 aggregates) ...
+
+Spiral 4 Story Map + TC seeds (~45 min):
+  ... (backbone 5 activities → MVP slice 4 must-have) ...
+  TC seeds synthesized: 38 across 4 must-have features
+
+Phase 4.5 Pre-mortem (~20 min):
+  Q: 1 năm sau dự án FAIL — 3 lý do?
+  Q: 1 năm sau dự án THÀNH CÔNG — bằng cách nào?
+  Risk register: 1 high-severity unmitigated → flag
+
+Phase 5 Crystallize:
+  ✓ FK integrity PASS
+  ✓ Semantic audit (5 rules) PASS
+  ✓ 4 intel artifacts written
+  ✓ 4 _state.md + 4 feature-brief.md created
+  ✓ intel-validator: PASS
+  ✓ snapshot regen: [OK]
+
+Phase 6 Handoff:
+  Vision: "AI code review cho solo dev"
+  Features: 6 (4 must-have, 2 should-have)
+  Actors: 2 | TC seeds: 38 | Risks high: 1 unmitigated
+  Bước tiếp: /resume-feature F-001 (trong Cursor)
+```
+
+**Tip — flexibility**:
+- Có thể chia nhiều session — skill resume liền mạch (Phase 0.0 detect state, time-aware recap)
+- Rewind to Spiral X — cascade refresh subsequent spirals (preserve originals trong `_idea/.history/`)
+- Idea graveyard append-only — `/from-idea --resurrect <G-NNN>` revive ý tưởng đã loại
+
+**Pitfall**:
+- Phase 4.5 pre-mortem **mandatory** (chống optimism bias) — không thể skip mà không flag audit
+- DEDUP REJECT > 50% → STOP với recommend rewrite scope
+- Iteration > 2 trên 1 spiral → force-decision menu (Confirm-with-gaps / Cancel / Continue-with-warning)
+- Ý tưởng quá vague (`[CẦN BỔ SUNG]` > 30% fields) → skill recommend offline clarification trước resume
+
+Chi tiết workflow → `from-idea`
+
+---
+
+### `/new-feature` — Khởi tạo 1 feature mới (interactive)
+
+**Một câu**: Wizard hỏi chi tiết feature → tạo `_state.md` + đăng ký vào `feature-catalog.json`.
+
+**Khi nào**: Có yêu cầu mới (từ stakeholder), cần thêm feature vào project hiện có.
+
+**Khác `/from-doc`**: `/from-doc` xử lý hàng loạt từ tài liệu; `/new-feature` interactive cho 1 feature.
+
+> **Từ 2026-05-02 (P2.1 dedup)**: `/new-feature {id}` chỉ xử lý 2 case — NEW (chưa có `_state.md`) hoặc UPDATE (`status:done` + change request). Nếu pipeline đang dở (`status:in-progress|blocked`) → skill auto-redirect sang `/resume-feature {id}` để dùng dispatcher loop với cost-fix discipline.
+
+**Input** (hỏi user):
+- Feature name (ngắn, tiếng Việt)
+- Business goal (≥100 chars)
+- Scope in/out, flow summary, constraints
+- Module, role visibility, dependencies, priority
+
+**Output**:
+- `docs/features/F-NNN/_state.md` (status: planned)
+- `docs/features/F-NNN/feature-brief.md`
+- `feature-catalog.json` thêm entry với placeholders `[CẦN BỔ SUNG]`
+
+**Ví dụ session** (Cursor):
+```
+> /new-feature
+
+Feature name: Xuất báo cáo doanh thu hàng tháng
+Business goal: Cho phép kế toán xuất báo cáo doanh thu theo tháng,
+   theo trạm thu phí, để đối chiếu với BOO partner...
+Module: revenue-reporting
+Role visibility: kế-toán:full, lãnh-đạo:readonly
+Priority: high
+
+→ Generated F-048 (status: planned)
+→ Updated feature-catalog.json + sitemap placeholder
+```
+
+**Tip — flexibility**:
+- Có thể bypass intel (nếu chưa từng chạy `/from-doc`/`/from-code`) — chỉ ghi vào `feature-map.yaml` legacy mode
+- Sau khi tạo, chạy `/resume-feature F-048` để bắt đầu SDLC
+
+**Pitfall**:
+- Trùng business intent với feature đã có → skill cảnh báo qua semantic search
+- Module name không trong sitemap → suggest closest match
+
+Chi tiết workflow →
+
+---
+
+### `/resume-feature` — Chạy SDLC pipeline 1 stage
+
+**Một câu**: Đọc `_state.md`, dispatch agent của `current-stage`, advance khi Pass.
+
+**Khi nào**: Sau `/new-feature` hoặc `/from-doc`, cần chạy pipeline qua các stage.
+
+**Input**: Feature ID hoặc path tới `_state.md`.
+
+**Output**: Mỗi stage tạo file riêng:
+- `ba/00-lean-spec.md` (ba)
+- `sa/00-lean-architecture.md` (sa)
+- `04-tech-lead-plan.md` (tech-lead)
+- `05-dev-w{N}-{task}.md` (dev)
+- `07-qa-report.md` + `test-evidence/F-NNN.json` (qa)
+- `08-review-report.md` (reviewer)
+
+**Ví dụ session** (Cursor — gọi nhiều lần):
+```
+> /resume-feature F-001
+[ba] Verdict: Pass. AC: 5 items, business_rules: 3.
+   Advance: in_design → in_development.
+
+> /resume-feature F-001
+[sa] Verdict: Pass. routes: 4 endpoints, entities: 2 new.
+
+> /resume-feature F-001
+[tech-lead] Verdict: Pass. Wave 1 (3 tasks), Wave 2 (2 tasks).
+
+> /resume-feature F-001
+[dev-wave-1] Verdict: Pass. Task T1.1 + T1.2 + T1.3 done.
+
+> /resume-feature F-001
+[fe-dev-wave-1] Verdict: Pass.
+
+> /resume-feature F-001
+[qa-wave-1] Verdict: Pass. 12 TCs (12 passed), 8 screenshots.
+
+> /resume-feature F-001
+[reviewer] Verdict: Approved. Ready to close.
+
+> /close-feature F-001
+✓ Sealed.
+```
+
+**Tip — flexibility**:
+- Có thể auto-loop: `/loop 5m /resume-feature F-001` → mỗi 5 phút tự advance 1 stage
+- Stage dừng ở `pm-required` → invoke `pm` agent → user trả lời → resume
+- Có thể skip stage: edit `stages-queue` trong `_state.md` (advanced)
+
+**Pitfall**:
+- Dependency check: nếu F-001 depends-on F-005 mà F-005 chưa done → skill ask wait/override/cancel
+- Intel stale → STOP với hint chạy `/intel-refresh`
+- Mid-wave dừng giữa chừng — resume đọc tasks done từ glob `05-*-w{N}-*.md` → tiếp tục từ task chưa làm
+
+Chi tiết workflow →
+
+---
+
+### `/close-feature` — Đóng feature, sync canonical
+
+**Một câu**: Sau reviewer Pass, seal `_state.md` + sync `feature-catalog.json` với evidence.
+
+**Khi nào**: Reviewer verdict = `Approved`, QA atomic triple đã có đủ.
+
+**Input**: Feature ID.
+
+**Output** (UPDATE):
+- `_state.md`: status=done, sealed
+- `feature-map.yaml`: status=done
+- `feature-catalog.json`: status=implemented + implementation_evidence (commits, coverage, ADRs)
+- `_meta.json`: provenance updated
+- `intel-snapshot/{timestamp}/`: snapshot regen
+
+**Ví dụ session**:
+```
+> /close-feature F-001
+
+Validating close conditions:
+  ✓ Reviewer verdict: Approved
+  ✓ QA atomic triple complete:
+     - test-evidence/F-001.json    (12 TCs, all passed)
+     - playwright/F-001.spec.ts    (executable)
+     - screenshots/F-001-*.png     (8 files, G-004 named)
+  ✓ min_tc check: 12 >= max(5, 5*2 + 3*2 + 2 + 3) = 21? NO
+
+✗ FAIL: TC count 12 < required 21.
+   Run /resume-feature F-001 → qa stage thêm TCs.
+```
+
+**Tip**:
+- Có flag `--skip-qa-gate` cho trường hợp đặc biệt — sẽ logged + audit
+- Sau close: auto-suggest `/generate-docs` nếu trong `docs/generated/{slug}` chưa có output
+
+**Pitfall**:
+- KHÔNG thể close khi `feature.status: blocked` — phải resolve blocker trước
+- Atomic triple incomplete → STOP nghiêm ngặt (I-001.16)
+
+Chi tiết workflow →
+
+---
+
+### `/generate-docs` — Sinh tài liệu Office
+
+**Một câu**: Đọc canonical intel → sinh content-data.json → render 5 Office files qua ai-mcp MCP.
+
+**Khi nào**: Features đã `done` (hoặc legacy mode), cần xuất TKKT/TKCS/HDSD/test-cases.
+
+**Input**: (đọc từ workspace)
+- `docs/intel/feature-catalog.json` (Tier 1)
+- `docs/intel/test-evidence/*.json` (assembly mode)
+- T3 fields (NFR, ATTT, dự toán) — phải có sẵn hoặc chạy `/intel-fill` trước
+
+**Output**:
+- `docs/generated/{slug}/output/tkkt.docx` — Thiết kế Kiến trúc
+- `docs/generated/{slug}/output/tkcs.docx` — Thiết kế Cơ sở
+- `docs/generated/{slug}/output/tkct.docx` — Thiết kế Chi tiết
+- `docs/generated/{slug}/output/hdsd.docx` — HDSD với screenshots
+- `docs/generated/{slug}/output/test-cases.xlsx` — Bộ test case (BM.QT.04.04)
+
+**Ví dụ session**:
+```
+$ /generate-docs
+
+Stage 1 Preflight: ✓ intel fresh, MCP healthy
+Stage 2 Discovery: 47 features loaded
+Stage 3 Analysis: 0 thin, 2 features missing test-evidence
+Stage 4a Capture: skipped 45 (have evidence)
+                  capturing 2 (Playwright fresh)
+Stage 4b-d Synthesis (parallel):
+  ► tdoc-tkkt-writer building architecture.* block
+  ► tdoc-tkcs-writer building tkcs.* block
+  ► tdoc-tkct-writer building tkct.* block
+Stage 5 Quality: ✓ schema validated
+Stage 6 Delivery (ai-mcp MCP):
+  ✓ tkkt.docx (1.4 MB)
+  ✓ tkcs.docx (2.6 MB)
+  ✓ tkct.docx (3.1 MB)
+  ✓ hdsd.docx (8.2 MB — 47 screenshots)
+  ✓ test-cases.xlsx (980 KB, 580 TCs)
+
+Output: docs/generated/be-portal/output/
+```
+
+**Tip — flexibility**:
+- ASSEMBLY mode (default): healthy project, có sẵn test-evidence → assembly thuần
+- FALLBACK mode: legacy không có test-evidence → synthesize TC qua ISTQB techniques, đánh dấu `proposed`
+- `--rerun-stage N` để chạy lại 1 stage cụ thể
+
+**Pitfall**:
+- MCP down → BLOCK (T-003). Skill instruct user `ai-kit mcp start`.
+- Intel stale → BLOCK với hint `/intel-refresh`.
+- T3 fields chưa fill → các block tkcs.* sẽ có `[CẦN BỔ SUNG]`. Fix: `/intel-fill` interview.
+
+Chi tiết workflow →
+
+---
+
+## Skills — Maintenance & utilities
+
+### `/intel-fill` — Interactive interview cho T3 fields
+
+**Một câu**: Wizard hỏi anh/chị về NFR, ATTT, dự toán, business context — fill 35% fields chỉ con người biết.
+
+**Khi nào**: Sau `/from-code` hoặc trước `/generate-docs` — khi T3 doc-only schemas chưa có data.
+
+**Ví dụ**:
+```
+$ /intel-fill
+
+Question 1/12: ATTT level theo NĐ 85/2016?
+   [1] Cấp 1 - Thông thường
+   [2] Cấp 2 - Quan trọng
+   [3] Cấp 3 - Rất quan trọng (mặc định)
+> 3
+
+Question 2/12: Đã thực hiện DPIA (NĐ 13/2023)?
+> yes
+
+Question 3/12: RPO/RTO mục tiêu?
+> RPO 1h, RTO 4h
+...
+```
+
+**Tip**: Skill skip questions đã có data, chỉ hỏi missing → ít phiền user.
+
+---
+
+### `/intel-refresh` — Re-derive intel sau code change
+
+**Một câu**: Re-extract sitemap + permission-matrix + data-model từ code hiện tại.
+
+**Khi nào**: Sau khi dev/fe-dev set `_state.md.intel-drift: true` (vì touch auth/RBAC/route).
+
+**Ví dụ**:
+```
+$ /intel-refresh
+
+Detected stale: sitemap.json (intel-drift flag set 2 features)
+Re-running:
+  ✓ tdoc-researcher Phase 1 (routes)
+  ✓ tdoc-actor-enum (RBAC)
+  ✓ intel-merger (resolve conflict với manual locks)
+  ✓ intel-validator (schema + cross-ref)
+  ✓ intel-snapshot (regen)
+
+✓ stale=false cho 4 artifacts
+```
+
+**Pitfall**: Không phá manual edits — fields trong `_meta.locked_fields[]` được preserve.
+
+---
+
+### `/zip-disk` — Đóng gói deliverable
+
+**Một câu**: Bundle Office files + src + Dockerfile thành 1 ZIP gửi khách.
+
+**Khi nào**: Sau `/generate-docs`, project sẵn sàng nghiệm thu.
+
+**Output**: `{project-name}-ban-giao-{YYYYMMDD}.zip` (root chứa file VN có dấu, src/ folder có Docker).
+
+---
+
+### `/quality` — Review code, sinh test, kiểm toán (5 modes)
+
+**Một câu**: 1 skill cho review PR, generate test, OWASP scan, GDPR/PII audit, dependency CVE check.
+
+**Modes** (chọn lúc invoke):
+- `review` — xem PR/diff, classify must-fix / should-fix / nit
+- `gen-tests` — QA scenarios + dev viết test theo repo conventions
+- `security` — OWASP Top 10 scan
+- `compliance` — GDPR/PCI/HIPAA/SOC2/PII data handling
+- `dependencies` — CVE + license + outdated packages
+
+**Ví dụ**:
+```
+$ /quality review               # PR review
+$ /quality security src/auth/   # OWASP scan trên 1 module
+$ /quality dependencies         # full repo CVE audit
+```
+
+> **Từ 2026-05-02 (P2.2)**: `/audit` đã được gộp vào `/quality` (modes security/compliance/dependencies). Skill `/audit` còn stub redirect, sẽ xoá 2026-08-01.
+
+---
+
+## Skills — Advanced (Đề án CĐS / tài liệu chiến lược)
+
+| Skill | Khi nào |
+|---|---|
+| `/new-strategic-document` | Tạo Đề án CĐS/CNTT cho cơ quan nhà nước (4 spirals, KB + DEDUP) |
+| `/new-document-workspace` | Scaffold 1 tài liệu hành chính (TKCS/HSMT/HSDT/dự toán/NCKT/...) |
+| `/strategic-critique` | Adversarial review Đề án CĐS — role-play thẩm định Bộ/Tỉnh |
+| `/resume-document` | Tiếp tục pipeline tài liệu dang dở |
+
+Đây là tooling cho **research-heavy strategic work**, khác hẳn SDLC pipeline. Xem `new-strategic-document` SKILL.md để hiểu rõ.
+
+---
+
+## Common pitfalls (chung cho mọi skill)
+
+### 1. "Intel layer chưa khởi tạo"
+- Cause: chưa chạy `/from-doc` hoặc `/from-code` lần nào
+- Fix: chạy 1 trong 2 skill đó trước khi `/new-feature` / `/generate-docs`
+
+### 2. "MCP down → BLOCK"
+- Cause: Docker container ai-mcp stopped
+- Fix: `ai-kit mcp start` rồi retry
+
+### 3. "Intel stale → STOP"
+- Cause: code đã thay đổi, sitemap/permission-matrix lỗi thời
+- Fix: `/intel-refresh`
+
+### 4. "Local changes detected" khi `ai-kit update`
+- Cause: anh/chị edit file trong `~/.ai-kit/` (không nên)
+- Fix: `ai-kit reset` (interactive)
+
+### 5. "intel-missing: <file>" khi run agent
+- Cause: agent yêu cầu artifact mà chưa có
+- Fix: chạy upstream skill (vd: missing `actor-registry.json` → chạy `/from-code` hoặc `/from-doc`)
+
+---
+
+## Liên quan
+
+- `agents` (sơ đồ tổng thể) — Bản đồ tổng thể
+- `agents` — Agent organization
+- `workflows/` — Hướng dẫn theo từng skill
+- `troubleshooting`
+
+## Quick reference (machine-readable index)
+
+Để xem auto-extracted descriptions từ SKILL.md frontmatter:
+```bash
+ai-kit doc skills --brief
+```
