@@ -1,0 +1,10 @@
+# Distribution repo — binaries live on GitHub Releases only
+release-dist/
+*.exe
+*.dmg
+*.zip
+*.tar.gz
+*.AppImage
+*.deb
+*.blockmap
+engine-config.enc
