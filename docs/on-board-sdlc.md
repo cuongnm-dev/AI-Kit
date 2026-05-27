@@ -1,4 +1,4 @@
-﻿---
+---
 title: On-board 🅰 SDLC — Sản xuất phần mềm (from-doc, from-code, SDLC pipeline)
 order: 11
 ---
@@ -54,7 +54,7 @@ Tài liệu này dành cho **dev/BA/SA/QA team** làm phần mềm bàn giao. N�
 │                        │                                            │
 │                        ▼                                            │
 │              ┌──────────────────────┐                               │
-│              │  ai-mcp MCP    │  (port 8001 — Docker)         │
+│              │  ai-mcp MCP    │  (port 8001 — Cloud/Local)    │
 │              │                      │                               │
 │              │  - Render TKKT/TKCS  │                               │
 │              │  - Render TKCT/HDSD  │                               │

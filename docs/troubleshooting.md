@@ -65,7 +65,7 @@ docker login
 
 ## MCP
 
-### Container restart loop
+### Container restart loop (Chỉ dành cho Dev Local)
 ```bash
 ai-kit mcp logs | tail -50
 ```

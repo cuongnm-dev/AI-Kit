@@ -1,4 +1,4 @@
-﻿---
+---
 title: On-board 🅒 Luồng C — SDLC từ ý tưởng (greenfield brainstorm)
 order: 13
 ---
@@ -243,7 +243,7 @@ Sau khi `/from-idea` hoàn tất Phase 6:
 | DEDUP REJECT > 50% deliverables | Scope quá rộng, trùng nền tảng dùng chung | Skill recommend rewrite scope, focus vào unique value-add |
 | Pre-mortem: > 50% failure modes unmitigated | Kế hoạch quá optimistic | User chọn rewind to Spiral 4 (giảm scope) hoặc accept high-risk profile |
 | `[CẦN BỔ SUNG]` > 30% fields | Thiếu thông tin nền (chưa nói chuyện với stakeholder) | Skill recommend offline clarification, save state, resume sau |
-| MCP down khi DEDUP gate | Docker container ai-mcp stopped | `ai-kit mcp start`, hoặc skill fallback local KB read (degraded) |
+| MCP down khi DEDUP gate | Mất kết nối tới máy chủ MCP (hoặc container ai-mcp dừng nếu chạy local) | kiểm tra kết nối mạng, hoặc chạy local: `ai-kit mcp start`, hoặc skill fallback local KB read (degraded) |
 | Iteration > 2 trong 1 spiral | Stuck hoặc decision fatigue | Force-decision menu: Confirm-with-gaps / Cancel / Continue-with-warning |
 
 ---
