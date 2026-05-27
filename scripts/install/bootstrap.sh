@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 # Install full AI Platform stack (ai-kit CLI + engine-config + MCP via ai-kit).
-# Requires: Node.js 18+, Docker, git
+# Requires: Node.js 18+, git
 set -e
 
 REPO='cuongnm-dev/ai-kit'

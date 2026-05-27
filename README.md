@@ -4,7 +4,7 @@
 
 **Tải phần mềm · Cài đặt · Cập nhật · Gỡ cài đặt · Hướng dẫn sử dụng**
 
-_(Hướng dẫn cho máy Windows)_
+_(Hỗ trợ cho máy Windows, macOS và Linux)_
 
 [1. Tải phần mềm](#1-tải-phần-mềm) · [2. Cài đặt](#2-cài-đặt) · [3. Cập nhật](#3-cập-nhật) · [4. Gỡ cài đặt](#4-gỡ-cài-đặt) · [5. Hướng dẫn dùng](#5-hướng-dẫn-dùng)
 
@@ -15,17 +15,17 @@ _(Hướng dẫn cho máy Windows)_
 ## Trang này là gì?
 
 Đây là trang **tải và cài đặt chính thức** bộ phần mềm **AI Platform** dùng trong công việc.  
-Anh/chị **tự tải và tự cài** trên máy Windows của mình theo các bước bên dưới — chỉ cần kết nối internet.
+Anh/chị chọn hướng dẫn phù hợp với hệ điều hành đang dùng (Windows, macOS hoặc Linux) để thực hiện cài đặt.
 
 ---
 
 ## Anh/chị sẽ cài những gì?
 
-| Phần mềm                                   | Việc làm trên máy                                                         |
-| ------------------------------------------ | ------------------------------------------------------------------------- |
-| **AI Studio**                              | Ứng dụng chính: làm việc với trợ lý AI, soạn thảo, quản lý phiên làm việc |
-| **Bộ cài hỗ trợ** (chạy một lần bằng lệnh) | Cài cấu hình chung, mẫu tài liệu và công cụ phục vụ soạn hồ sơ / dự án    |
-| **Tài liệu hướng dẫn**                     | Đọc sau khi cài xong (mục [5](#5-hướng-dẫn-dùng))                         |
+| Phần mềm | Việc làm trên máy |
+| --- | --- |
+| **AI Studio** | Ứng dụng chính: làm việc với trợ lý AI, soạn thảo, quản lý phiên làm việc |
+| **Bộ hỗ trợ (CLI)** | Cài cấu hình chung, mẫu tài liệu và công cụ phục vụ soạn hồ sơ / dự án |
+| **Tài liệu hướng dẫn** | Đọc sau khi cài xong (mục [5](#5-hướng-dẫn-dùng)) |
 
 **Thứ tự:** cài **AI Studio** trước, sau đó chạy **bộ cài hỗ trợ** (mục [2](#2-cài-đặt)).
 
@@ -34,10 +34,11 @@ Anh/chị **tự tải và tự cài** trên máy Windows của mình theo các 
 ## 1. Tải phần mềm
 
 1. Mở link: **[Bản phát hành mới nhất](https://github.com/cuongnm-dev/ai-kit/releases/latest)**.
-2. Chọn dòng bản mới (ví dụ `v1.11.6`).
-3. Ở phần **Assets** (tệp đính kèm), tải file **`AI Studio-...-x64.exe`** (tên có chữ **x64**, đuôi **.exe**).
-
-Lưu file vào thư mục **Tải xuống** (hoặc nơi anh/chị dễ tìm).
+2. Chọn phiên bản mới nhất (ví dụ `v1.11.6`).
+3. Tải tệp cài đặt phù hợp với máy của bạn trong phần **Assets** (tệp đính kèm):
+   * **Windows:** Tải file **`AI Studio-...-x64.exe`** (đuôi `.exe`).
+   * **macOS:** Tải file **`AI Studio-...-arm64.dmg`** (cho chip Apple M1/M2/M3) hoặc **`AI Studio-...-x64.dmg`** (cho chip Intel).
+   * **Linux:** Tải file **`AI Studio-...-x64.AppImage`** hoặc **`.deb`**.
 
 ---
 
@@ -45,29 +46,39 @@ Lưu file vào thư mục **Tải xuống** (hoặc nơi anh/chị dễ tìm).
 
 ### Bước 1 — Cài AI Studio
 
-1. Mở thư mục **Tải xuống**.
-2. **Nhấp đúp** file `AI Studio-...-x64.exe`.
-3. Bấm **Next** → **Install** → **Finish**.
-4. Lần đầu Windows có thể cảnh báo bảo mật — chọn **More info** → **Run anyway** (phần mềm nội bộ).
-5. Mở **AI Studio** từ menu **Start**.
+* **Windows:**
+  1. Nhấp đúp file `.exe` đã tải.
+  2. Bấm **Next** → **Install** → **Finish**.
+  3. Lần đầu mở ứng dụng có thể gặp cảnh báo SmartScreen $\rightarrow$ chọn **More info** $\rightarrow$ **Run anyway** (do đây là phần mềm nội bộ).
+* **macOS:**
+  1. Nhấp đúp file `.dmg` đã tải.
+  2. Kéo thả biểu tượng **AI Studio** vào thư mục **Applications** (Ứng dụng).
+  3. Lần đầu mở ứng dụng, nếu gặp cảnh báo bảo mật, hãy vào *System Settings (Cài đặt hệ thống) $\rightarrow$ Privacy & Security (Quyền riêng tư & Bảo mật)* và chọn **Open Anyway**.
+* **Linux:**
+  1. Cấp quyền thực thi cho file `.AppImage` (`chmod +x`).
+  2. Nhấp đúp để chạy ứng dụng ngay.
+
+---
 
 ### Bước 2 — Cài bộ hỗ trợ (làm một lần)
 
-Trước khi chạy lệnh, máy cần:
+Trước khi chạy lệnh, máy của bạn cần cài đặt **Node.js** (phiên bản LTS) tại [nodejs.org](https://nodejs.org) (cài đặt theo mặc định: Next $\rightarrow$ Next).
 
-- **Node.js** (bản LTS) — [tải tại nodejs.org](https://nodejs.org), cài theo mặc định (Next → Next).
+#### 💻 Cho Windows:
+1. Nhấn phím **Windows**, gõ `PowerShell` và mở **Windows PowerShell**.
+2. Sao chép và chạy lệnh sau (nhấn Enter):
+   ```powershell
+   irm https://raw.githubusercontent.com/cuongnm-dev/ai-kit/main/bootstrap.ps1 | iex
+   ```
+3. Đợi chương trình chạy xong, đóng PowerShell và mở lại. Chạy lệnh `ai-kit doctor` để xác nhận thành công.
 
-Tiếp theo:
-
-1. Nhấn phím **Windows**, gõ `PowerShell`, mở **Windows PowerShell**.
-2. Sao chép **nguyên dòng** dưới, dán vào cửa sổ, nhấn **Enter**:
-
-```powershell
-irm https://raw.githubusercontent.com/cuongnm-dev/ai-kit/main/bootstrap.ps1 | iex
-```
-
-3. Đợi chương trình chạy xong (có thể mất vài phút).
-4. **Đóng** PowerShell, mở lại, gõ `ai-kit doctor` rồi Enter — nếu báo ổn là xong.
+#### 🍎 Cho macOS / Linux:
+1. Mở ứng dụng **Terminal** trên máy.
+2. Sao chép và chạy lệnh sau (nhấn Enter):
+   ```bash
+   curl -sL https://raw.githubusercontent.com/cuongnm-dev/ai-kit/main/bootstrap.sh | bash
+   ```
+3. Mở một cửa sổ Terminal mới, chạy lệnh `ai-kit doctor` để xác nhận thành công.
 
 **Gặp lỗi:** xem [Xử lý sự cố](docs/troubleshooting.md) hoặc [Câu hỏi thường gặp](docs/faq.md).
 
@@ -75,59 +86,54 @@ irm https://raw.githubusercontent.com/cuongnm-dev/ai-kit/main/bootstrap.ps1 | ie
 
 ## 3. Cập nhật
 
-| Phần          | Cách làm                                                                                                                                             |
-| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **AI Studio** | Trong app chọn **Kiểm tra cập nhật** — hoặc tải file `.exe` mới tại [Bản phát hành](https://github.com/cuongnm-dev/ai-kit/releases/latest) và cài đè |
-| **Bộ hỗ trợ** | Mở PowerShell, gõ `ai-kit update` rồi Enter                                                                                                          |
+| Hệ điều hành | AI Studio | Bộ hỗ trợ (CLI) |
+| --- | --- | --- |
+| **Windows** | Chọn **Kiểm tra cập nhật** trong app hoặc tải `.exe` cài đè | Chạy lệnh `ai-kit update` trong **PowerShell** |
+| **macOS / Linux** | Chọn **Kiểm tra cập nhật** trong app hoặc tải `.dmg` cài đè | Chạy lệnh `ai-kit update` trong **Terminal** |
 
 ---
 
 ## 4. Gỡ cài đặt
 
-Dùng khi **đổi máy**, **cài lại**, hoặc **gỡ hẳn** phần mềm.
+Lưu ý: Việc gỡ cài đặt chỉ xóa phần mềm và các tệp cấu hình AI, **không** ảnh hưởng đến các file tài liệu cá nhân (Word, Excel, Code...) của bạn.
 
-Lệnh gỡ chỉ xóa **phần mềm và cấu hình AI** — **không** xóa file Word, Excel, PDF trong ổ đĩa làm việc của anh/chị.
+#### 💻 Cho Windows:
+1. Mở **PowerShell** (Windows $\rightarrow$ gõ `PowerShell`).
+2. Sao chép và chạy lệnh sau:
+   ```powershell
+   $i = "$env:TEMP\remove-all-products.ps1"
+   irm https://raw.githubusercontent.com/cuongnm-dev/ai-kit/main/remove-all-products.ps1 -OutFile $i
+   & $i
+   ```
+3. Vào *Settings (Cài đặt) $\rightarrow$ Apps (Ứng dụng)* và gỡ cài đặt **AI Studio** nếu còn.
 
-1. Mở **PowerShell** (Windows → gõ `PowerShell`).
-2. Dán lần lượt từng khối, Enter sau mỗi khối.
-
-**Xem trước** (chưa xóa gì):
-
-```powershell
-$i = "$env:TEMP\remove-all-products.ps1"
-irm https://raw.githubusercontent.com/cuongnm-dev/ai-kit/main/remove-all-products.ps1 -OutFile $i
-& $i -DryRun
-```
-
-**Gỡ thật** — khi màn hình hỏi, gõ **Y** rồi Enter:
-
-```powershell
-& $i
-```
-
-3. Vào **Cài đặt → Ứng dụng** — nếu còn **AI Studio**, chọn **Gỡ cài đặt**.
-
-File lệnh gỡ: [remove-all-products.ps1](remove-all-products.ps1)
+#### 🍎 Cho macOS / Linux:
+1. Mở ứng dụng **Terminal**.
+2. Sao chép và chạy lệnh sau (nhấn Enter):
+   ```bash
+   curl -sL https://raw.githubusercontent.com/cuongnm-dev/ai-kit/main/remove-all-products.sh | bash
+   ```
+3. Xóa biểu tượng ứng dụng **AI Studio** trong thư mục **Applications** (Ứng dụng).
 
 ---
 
 ## 5. Hướng dẫn dùng
 
-| Công việc                            | Tài liệu                                                |
-| ------------------------------------ | ------------------------------------------------------- |
+| Công việc | Tài liệu |
+| --- | --- |
 | Soạn hồ sơ, đề án, tài liệu nhà nước | [Bắt đầu — tài liệu nhà nước](docs/on-board-tailieu.md) |
-| Làm dự án phần mềm                   | [Bắt đầu — SDLC](docs/on-board-sdlc.md)                 |
-| Câu hỏi thường gặp                   | [FAQ](docs/faq.md)                                      |
-| Lỗi, không chạy được                 | [Xử lý sự cố](docs/troubleshooting.md)                  |
+| Làm dự án phần mềm | [Bắt đầu — SDLC](docs/on-board-sdlc.md) |
+| Câu hỏi thường gặp | [FAQ](docs/faq.md) |
+| Lỗi, không chạy được | [Xử lý sự cố](docs/troubleshooting.md) |
 
-Sau khi cài bộ hỗ trợ: mở PowerShell, gõ `ai-kit doc` để xem thêm tài liệu trên máy.
+Sau khi cài bộ hỗ trợ: mở PowerShell hoặc Terminal, gõ `ai-kit doc` để xem thêm tài liệu trên máy.
 
 ---
 
 ## Hỗ trợ
 
 1. Đọc [Xử lý sự cố](docs/troubleshooting.md) và [FAQ](docs/faq.md).
-2. Gửi [phản ánh lỗi](https://github.com/cuongnm-dev/ai-kit/issues): ghi rõ Windows 10 hay 11, bước đang làm, kèm ảnh màn hình (che nội dung mật).
+2. Gửi [phản ánh lỗi](https://github.com/cuongnm-dev/ai-kit/issues): ghi rõ hệ điều hành, bước đang làm, kèm ảnh màn hình (che thông tin nhạy cảm).
 
 ---
 
