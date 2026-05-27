@@ -1,4 +1,4 @@
-﻿---
+---
 title: FAQ — Câu hỏi thường gặp
 order: 91
 ---
@@ -78,7 +78,7 @@ Bootstrap kiểm tra môi trường, clone repo, deploy agents/skills, start MCP
 
 ### 1.3 Có thể không dùng Docker không?
 
-Không — `ai-mcp` MCP chạy như Docker container. Đó là cách team đảm bảo mọi người có cùng phiên bản render engine + templates.
+Có. Ở phiên bản mới, hệ thống MCP (`ai-mcp`) đã được triển khai tập trung trên đám mây (Cloud-hosted). Người dùng cuối và lập trình viên thông thường không cần cài đặt hay chạy Docker Desktop cục bộ trên máy nữa. Docker hiện tại chỉ là tùy chọn dành riêng cho các lập trình viên lõi (Maintainers) khi muốn chạy thử nghiệm local.
 
 ---
 
@@ -185,9 +185,9 @@ git -C ~/.ai-kit stash pop
 
 ## 4. MCP
 
-### 4.1 MCP là gì? Tại sao cần Docker?
+### 4.1 MCP là gì? Tại sao không cần cài Docker nữa?
 
-MCP (Model Context Protocol) là server chứa render engines (DOCX/XLSX) + templates + outline registry + KB. Team đóng gói thành 1 Docker image (`o0mrblack0o/ai-mcp:latest`) để mọi người có cùng phiên bản. Image multi-arch (amd64 + arm64), Mac M1/M2 chạy native.
+MCP (Model Context Protocol) là máy chủ chứa render engines (DOCX/XLSX) + templates + outline registry + KB. Trong phiên bản mới, MCP đã được triển khai tập trung trên đám mây (Cloud-hosted), cho phép client kết nối trực tiếp thông qua API HTTP. Do đó, người dùng cuối không cần cài đặt Docker cục bộ để chạy MCP container nữa. Việc đóng gói Docker image hiện tại chỉ phục vụ cho quy trình triển khai phía máy chủ của Maintainer.
 
 ### 4.2 MCP không khởi động được?
 

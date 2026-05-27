@@ -56,7 +56,6 @@ Lưu file vào thư mục **Tải xuống** (hoặc nơi anh/chị dễ tìm).
 Trước khi chạy lệnh, máy cần:
 
 - **Node.js** (bản LTS) — [tải tại nodejs.org](https://nodejs.org), cài theo mặc định (Next → Next).
-- **Docker Desktop** — [tải tại docker.com](https://www.docker.com/products/docker-desktop), cài xong **mở Docker** và đợi biểu tượng ở khay hệ thống chạy ổn định.
 
 Tiếp theo:
 

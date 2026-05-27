@@ -1,4 +1,4 @@
-﻿---
+---
 title: Team AI Config — Documentation Hub
 order: 0
 ---
@@ -11,7 +11,6 @@ order: 0
 ┌─────────────────────────────────────────────────┐
 │  ~/.ai-kit          ai-kit CLI + repo clone      │
 │  ~/.config/engine   ai-engine agents + skills   │
-│  Docker             ai-mcp MCP  @  :8001  │
 └─────────────────────────────────────────────────┘
 ```
 
@@ -182,7 +181,6 @@ Tất cả skills + agents tuân theo **LIFECYCLE contract** — mỗi khâu có
 | Tool | Tối thiểu | Ghi chú |
 |---|---|---|
 | Node.js | ≥ 18 | `ai-kit` CLI là Node + Ink |
-| Docker | bất kỳ | Cần để chạy MCP image |
 | git | ≥ 2.30 | Bootstrap clone repo |
 | Python 3 | ≥ 3.10 | Dùng bởi vài skill nội bộ |
 | glow *(tuỳ chọn)* | — | Render markdown đẹp trên terminal |

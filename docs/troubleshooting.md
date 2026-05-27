@@ -1,4 +1,4 @@
-﻿---
+---
 title: Troubleshooting
 order: 99
 ---
@@ -17,8 +17,8 @@ export PATH="$HOME/.ai-kit/bin:$PATH"
 # Windows — đóng và mở PowerShell mới
 ```
 
-### `Docker daemon not running`
-Mở Docker Desktop, đợi whale icon steady, retry.
+### `Docker daemon not running` (Chỉ dành cho Dev Local)
+Nếu bạn là Developer/Maintainer đang tự chạy thử nghiệm local và gặp lỗi này: Mở Docker Desktop, đợi whale icon steady, retry.
 
 ### Windows: "running scripts is disabled"
 ```powershell
@@ -57,7 +57,7 @@ git stash pop      # nếu muốn restore
 # C) Upstream changes (maintainer — dùng artifacts-studio, không dùng ai-kit publish)
 ```
 
-### `Docker pull` rate limit
+### `Docker pull` rate limit (Chỉ dành cho Dev Local)
 Anonymous pull bị limit 100/6h. Login Docker Hub:
 ```bash
 docker login
