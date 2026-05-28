@@ -21,13 +21,11 @@ Anh/chị chọn hướng dẫn phù hợp với hệ điều hành đang dùng 
 
 ## Anh/chị sẽ cài những gì?
 
-| Phần mềm | Việc làm trên máy |
-| --- | --- |
-| **AI Studio** | Ứng dụng chính: làm việc với trợ lý AI, soạn thảo, quản lý phiên làm việc |
-| **Bộ hỗ trợ (CLI)** | Cài cấu hình chung, mẫu tài liệu và công cụ phục vụ soạn hồ sơ / dự án |
-| **Tài liệu hướng dẫn** | Đọc sau khi cài xong (mục [5](#5-hướng-dẫn-dùng)) |
-
-**Thứ tự:** cài **AI Studio** trước, sau đó chạy **bộ cài hỗ trợ** (mục [2](#2-cài-đặt)).
+Chỉ cần tải và cài đặt một gói duy nhất: **AI Studio**.  
+Bộ cài đặt này sẽ tự động tích hợp và cài đặt sẵn:
+* **AI Studio** – Ứng dụng giao diện chính.
+* **AI Engine** – Nhân xử lý và chạy các trợ lý AI đi kèm (bundled sidecar runtime).
+* **AI Kit** – Bộ công cụ hỗ trợ dạng dòng lệnh (CLI helper) được cấu hình tự động vào biến môi trường hệ thống.
 
 ---
 
@@ -42,9 +40,9 @@ Anh/chị chọn hướng dẫn phù hợp với hệ điều hành đang dùng 
 
 ---
 
-## 2. Cài đặt
+## 2. Cài đặt và Kích hoạt
 
-### Bước 1 — Cài AI Studio
+### Bước 1 — Cài đặt AI Studio
 
 * **Windows:**
   1. Nhấp đúp file `.exe` đã tải.
@@ -60,25 +58,17 @@ Anh/chị chọn hướng dẫn phù hợp với hệ điều hành đang dùng 
 
 ---
 
-### Bước 2 — Cài bộ hỗ trợ (làm một lần)
+### Bước 2 — Mở ứng dụng và kiểm tra (làm một lần)
 
-Trước khi chạy lệnh, máy của bạn cần cài đặt **Node.js** (phiên bản LTS) tại [nodejs.org](https://nodejs.org) (cài đặt theo mặc định: Next $\rightarrow$ Next).
+Khi bạn mở ứng dụng **AI Studio** lần đầu tiên, chương trình sẽ tự động thiết lập và cài đặt bộ hỗ trợ CLI (`ai-kit`) và đưa đường dẫn lệnh vào biến môi trường `PATH` của máy bạn.
 
-#### 💻 Cho Windows:
-1. Nhấn phím **Windows**, gõ `PowerShell` và mở **Windows PowerShell**.
-2. Sao chép và chạy lệnh sau (nhấn Enter):
-   ```powershell
-   irm https://raw.githubusercontent.com/cuongnm-dev/ai-kit/main/bootstrap.ps1 | iex
-   ```
-3. Đợi chương trình chạy xong, đóng PowerShell và mở lại. Chạy lệnh `ai-kit doctor` để xác nhận thành công.
-
-#### 🍎 Cho macOS / Linux:
-1. Mở ứng dụng **Terminal** trên máy.
+Để kiểm tra xem mọi thứ đã được thiết lập thành công:
+1. Mở một cửa sổ **PowerShell** (Windows) hoặc **Terminal** (macOS/Linux) **MỚI**.
 2. Sao chép và chạy lệnh sau (nhấn Enter):
    ```bash
-   curl -sL https://raw.githubusercontent.com/cuongnm-dev/ai-kit/main/bootstrap.sh | bash
+   ai-kit doctor
    ```
-3. Mở một cửa sổ Terminal mới, chạy lệnh `ai-kit doctor` để xác nhận thành công.
+3. Nếu lệnh hiển thị thông tin kiểm tra thành công, bạn đã hoàn tất quá trình cài đặt.
 
 **Gặp lỗi:** xem [Xử lý sự cố](docs/troubleshooting.md) hoặc [Câu hỏi thường gặp](docs/faq.md).
 
@@ -86,10 +76,10 @@ Trước khi chạy lệnh, máy của bạn cần cài đặt **Node.js** (phi�
 
 ## 3. Cập nhật
 
-| Hệ điều hành | AI Studio | Bộ hỗ trợ (CLI) |
-| --- | --- | --- |
-| **Windows** | Chọn **Kiểm tra cập nhật** trong app hoặc tải `.exe` cài đè | Chạy lệnh `ai-kit update` trong **PowerShell** |
-| **macOS / Linux** | Chọn **Kiểm tra cập nhật** trong app hoặc tải `.dmg` cài đè | Chạy lệnh `ai-kit update` trong **Terminal** |
+Khi có phiên bản mới, bạn chỉ cần thực hiện cập nhật cho ứng dụng chính **AI Studio**:
+* Chọn **Kiểm tra cập nhật** trực tiếp trong ứng dụng hoặc tải bản cài đặt `.exe` / `.dmg` mới nhất để cài đè lên phiên bản cũ.
+* Các thành phần đi kèm như **AI Engine** và **AI Kit** sẽ tự động được ứng dụng cập nhật đồng bộ lên phiên bản mới nhất khi khởi chạy phiên bản mới.
+* *(Tùy chọn)* Đối với cấu hình CLI và template, bạn vẫn có thể chạy lệnh `ai-kit update` trong Terminal/PowerShell để đồng bộ nhanh.
 
 ---
 
@@ -99,17 +89,17 @@ Lưu ý: Việc gỡ cài đặt chỉ xóa phần mềm và các tệp cấu h�
 
 #### 💻 Cho Windows:
 1. Mở **PowerShell** (Windows $\rightarrow$ gõ `PowerShell`).
-2. Sao chép và chạy lệnh sau:
+2. Sao chép và chạy lệnh sau để dọn dẹp các tệp cấu hình CLI:
    ```powershell
    $i = "$env:TEMP\remove-all-products.ps1"
    irm https://raw.githubusercontent.com/cuongnm-dev/ai-kit/main/remove-all-products.ps1 -OutFile $i
    & $i
    ```
-3. Vào *Settings (Cài đặt) $\rightarrow$ Apps (Ứng dụng)* và gỡ cài đặt **AI Studio** nếu còn.
+3. Vào *Settings (Cài đặt) $\rightarrow$ Apps (Ứng dụng)* và gỡ cài đặt **AI Studio** khỏi hệ thống.
 
 #### 🍎 Cho macOS / Linux:
 1. Mở ứng dụng **Terminal**.
-2. Sao chép và chạy lệnh sau (nhấn Enter):
+2. Sao chép và chạy lệnh sau để dọn dẹp cấu hình (nhấn Enter):
    ```bash
    curl -sL https://raw.githubusercontent.com/cuongnm-dev/ai-kit/main/remove-all-products.sh | bash
    ```
