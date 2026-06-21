@@ -1,0 +1,52 @@
+name: release
+
+# Public repo → unlimited Linux minutes. Trigger manually only (saves private-repo quota).
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Semver release (e.g. 2.0.0)"
+        required: true
+        type: string
+      monorepo_ref:
+        description: "AI-Platform monorepo git ref"
+        required: false
+        default: "main"
+        type: string
+
+concurrency: release-${{ inputs.version }}
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - name: Checkout monorepo
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+        with:
+          repository: cuongnm-dev/AI-Platform-2.0
+          token: ${{ secrets.MONOREPO_PAT }}
+          ref: ${{ inputs.monorepo_ref }}
+          fetch-depth: 0
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+        with:
+          bun-version-file: package.json
+
+      - name: Cache Bun
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: ~/.bun/install/cache
+          key: bun-${{ hashFiles('bun.lock') }}
+          restore-keys: bun-
+
+      - name: Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_VERSION: ${{ inputs.version }}
+          GH_REPO: cuongnm-dev/AI-Kit
+        run: bun tools/ci-release-ai-kit.ts
