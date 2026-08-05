@@ -45,12 +45,24 @@ Anh/chị vui lòng bấm trực tiếp vào liên kết bên dưới phù hợp
 
 ## ⚙️ 2. Cài đặt và Kích hoạt
 
-### Bước 1: Khởi chạy bộ cài đặt ứng dụng chính
+### Bước 1: (Chỉ Windows) Cài đặt chứng chỉ tin cậy nội bộ — làm 1 lần trên mỗi máy
+
+Bộ cài `.exe` được ký số bằng chứng chỉ nội bộ **ETC AI Platform**. Trên một máy Windows **chưa từng cài AI Studio trước đây**, hệ thống chưa biết đến chứng chỉ này nên phần mềm diệt virus (đặc biệt là **Kaspersky**) hoặc Windows Defender SmartScreen có thể cảnh báo *"Unknown publisher"* / nghi ngờ virus. Làm bước sau **trước khi** chạy bộ cài để tránh cảnh báo:
+
+1. Tải [📥 ai-studio-trust-cert.zip](https://github.com/cuongnm-dev/AI-Kit/releases/latest/download/ai-studio-trust-cert.zip) và giải nén ra một thư mục bất kỳ (2 tệp `install-cert.ps1` + `etc-codesign.cer` phải nằm cùng thư mục).
+2. Nhấp chuột phải vào `install-cert.ps1` → chọn **Run with PowerShell**, xác nhận cửa sổ **UAC** (yêu cầu quyền Quản trị viên), rồi gõ `y` khi được hỏi xác nhận nhập chứng chỉ.
+
+> [!NOTE]
+> Bỏ qua bước này nếu máy đã từng làm rồi, hoặc nếu Windows/AV vẫn không cảnh báo gì khi chạy bộ cài.
+
+macOS và Linux không cần bước này.
+
+### Bước 2: Khởi chạy bộ cài đặt ứng dụng chính
 
 *   💻 **Trên Windows**:
     1. Nhấp đúp vào tệp `.exe` vừa tải xuống.
     2. Bấm **Next** $\rightarrow$ **Install** $\rightarrow$ **Finish** để hoàn tất cài đặt.
-    3. Do đây là phần mềm phân phối nội bộ, lần đầu khởi chạy nếu gặp thông báo *Windows Defender SmartScreen* $\rightarrow$ bấm chọn **More info** $\rightarrow$ chọn **Run anyway**.
+    3. Nếu vẫn gặp thông báo *Windows Defender SmartScreen* (ví dụ chưa làm Bước 1) $\rightarrow$ bấm chọn **More info** $\rightarrow$ chọn **Run anyway**. Nếu phần mềm diệt virus khác (Kaspersky, ...) chặn hẳn việc chạy/cài đặt, hãy làm Bước 1 ở trên trước, hoặc thêm ngoại lệ (exception) thủ công cho tệp `.exe` này trong phần mềm diệt virus.
 *   🍎 **Trên macOS**:
     1. Nhấp đúp vào tệp `.dmg` đã tải về để mở ổ đĩa ảo.
     2. Kéo thả biểu tượng **AI Studio** vào thư mục **Applications** (Ứng dụng).
@@ -61,7 +73,7 @@ Anh/chị vui lòng bấm trực tiếp vào liên kết bên dưới phù hợp
 
 ---
 
-### Bước 2: Xác thực cấu hình môi trường dòng lệnh (Chỉ làm một lần)
+### Bước 3: Xác thực cấu hình môi trường dòng lệnh (Chỉ làm một lần)
 
 Khi khởi chạy **AI Studio** lần đầu tiên, ứng dụng sẽ tự động tích hợp bộ công cụ dòng lệnh `ai-kit` vào hệ điều hành. Để xác minh quá trình này hoàn tất thành công:
 
