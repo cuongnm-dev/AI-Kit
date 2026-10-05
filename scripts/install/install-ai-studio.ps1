@@ -6,9 +6,13 @@ $Api = "https://api.github.com/repos/$Repo/releases/latest"
 Write-Host "  Fetching AI Studio from $Repo ..." -ForegroundColor Cyan
 $release = Invoke-RestMethod -Uri $Api -Headers @{ 'User-Agent' = 'ai-platform-bootstrap' }
 $arch = if ([Environment]::Is64BitOperatingSystem) { 'x64' } else { 'x86' }
-$asset = $release.assets | Where-Object { $_.name -match "AI Studio-.*-${arch}\.exe$" } | Select-Object -First 1
+# Release assets are named ai-studio-desktop-win-<arch>.exe since 2026-09-04; the older "AI Studio-<ver>-<arch>.exe" shape is kept as the fallback.
+$asset = $release.assets | Where-Object { $_.name -match "^ai-studio-desktop-win-${arch}\.exe$" } | Select-Object -First 1
 if (-not $asset) {
-    $asset = $release.assets | Where-Object { $_.name -match 'AI Studio-.*\.exe$' } | Select-Object -First 1
+    $asset = $release.assets | Where-Object { $_.name -match "AI Studio-.*-${arch}\.exe$" } | Select-Object -First 1
+}
+if (-not $asset) {
+    $asset = $release.assets | Where-Object { $_.name -match '\.exe$' } | Select-Object -First 1
 }
 if (-not $asset) { throw 'No AI Studio *.exe on latest release. Upload installer to Releases first.' }
 

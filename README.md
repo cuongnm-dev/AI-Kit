@@ -45,15 +45,18 @@ Anh/chị vui lòng bấm trực tiếp vào liên kết bên dưới phù hợp
 
 ## ⚙️ 2. Cài đặt và Kích hoạt
 
-### Bước 1: (Chỉ Windows) Cài đặt chứng chỉ tin cậy nội bộ — làm 1 lần trên mỗi máy
+### Bước 1: (Chỉ Windows) Tin chứng chỉ ký số nội bộ — làm 1 lần cho mỗi tài khoản Windows
 
-Bộ cài `.exe` được ký số bằng chứng chỉ nội bộ **ETC AI Platform**. Trên một máy Windows **chưa từng cài AI Studio trước đây**, hệ thống chưa biết đến chứng chỉ này nên phần mềm diệt virus (đặc biệt là **Kaspersky**) hoặc Windows Defender SmartScreen có thể cảnh báo *"Unknown publisher"* / nghi ngờ virus. Làm bước sau **trước khi** chạy bộ cài để tránh cảnh báo:
+Bộ cài `.exe` **và mọi bản cập nhật tự động** của AI Studio được ký bằng chứng chỉ nội bộ **ETC AI Platform** (thumbprint SHA-1 `90845F3F36BEEB8D8C4ED2D067662F6832E4EA85`). Máy Windows chưa tin chứng chỉ này thì: Windows SmartScreen hoặc phần mềm diệt virus (đặc biệt **Kaspersky**) cảnh báo *"Unknown publisher"* khi cài, **và AI Studio sẽ từ chối mọi bản cập nhật tự động** với thông báo *"this computer does not trust that certificate's root"* — khi đó anh/chị phải tải bộ cài về cài tay ở mỗi bản mới. Làm bước này **một lần** là hết cả hai vấn đề.
 
-1. Tải [📥 ai-studio-trust-cert.zip](https://github.com/cuongnm-dev/AI-Kit/releases/latest/download/ai-studio-trust-cert.zip) và giải nén ra một thư mục bất kỳ (2 tệp `install-cert.ps1` + `etc-codesign.cer` phải nằm cùng thư mục).
-2. Nhấp chuột phải vào `install-cert.ps1` → chọn **Run with PowerShell**, xác nhận cửa sổ **UAC** (yêu cầu quyền Quản trị viên), rồi gõ `y` khi được hỏi xác nhận nhập chứng chỉ.
+1. Tải [📥 ai-studio-trust-cert.zip](https://github.com/cuongnm-dev/AI-Kit/releases/latest/download/ai-studio-trust-cert.zip) (có trên mọi bản phát hành; bản không nén nằm tại [`scripts/trust-cert/`](scripts/trust-cert/)) và giải nén ra một thư mục bất kỳ — các tệp phải nằm cùng thư mục.
+2. Nhấp chuột phải vào `trust-cert-user.ps1` → chọn **Run with PowerShell**. **Không cần quyền Quản trị viên.** Nếu Windows hiện hộp thoại xác nhận cài chứng chỉ → chọn **Yes**.
+3. Nếu AI Studio đang mở: thoát hẳn (khay hệ thống → Thoát) rồi mở lại để bản cập nhật đang chờ tự cài.
 
 > [!NOTE]
-> Bỏ qua bước này nếu máy đã từng làm rồi, hoặc nếu Windows/AV vẫn không cảnh báo gì khi chạy bộ cài.
+> Máy dùng chung hoặc do IT quản lý: chạy `install-cert.ps1` (cần Quản trị viên, tin cho mọi tài khoản trên máy), hoặc IT đẩy `etc-codesign.cer` qua GPO vào *Trusted Root Certification Authorities* + *Trusted Publishers* cho toàn bộ máy.
+>
+> Kiểm tra máy đã tin chưa (PowerShell): `Get-AuthenticodeSignature "$env:LOCALAPPDATA\Programs\AI Studio\AI Studio.exe" | Format-List Status` → đúng là `Status : Valid`. SmartScreen không cảnh báo **chưa** có nghĩa là đã tin: cập nhật tự động vẫn bị từ chối nếu `Status` khác `Valid`.
 
 macOS và Linux không cần bước này.
 
